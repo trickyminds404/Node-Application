@@ -1,0 +1,19 @@
+hosts: web
+become: yes
+vars:
+docker_image: "nageshdocker25/myapp:latest"
+tasks:
+
+name: Install Docker
+apt:
+name: docker.io
+state: present
+update_cache: true
+
+name: Pull Docker Image
+shell: docker pull {{ docker_image }}
+
+name: Run Docker Container
+shell: docker run -d -p 80:3000 {{ docker_image }}
+
+
